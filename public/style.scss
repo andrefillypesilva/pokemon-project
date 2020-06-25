@@ -1,0 +1,16 @@
+body {
+    #app {
+        .container {
+            .row {
+                .pokehome {
+                    height: 25vh;
+                    border: 1px solid #ddd;
+
+                    img {
+                        height: 100%;
+                    }
+                }
+            }
+        }
+    }
+}

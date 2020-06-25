@@ -16,6 +16,6 @@
     "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
-    "dev": "webpack-dev-server --mode=development"
+    "dev": "sass ./public/style.scss ./public/styles/style.css && webpack-dev-server --mode=development"
   }
 }
