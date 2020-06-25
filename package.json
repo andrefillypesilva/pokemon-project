@@ -1,0 +1,9 @@
+{
+  "name": "pokemon-project",
+  "version": "0.0.1",
+  "description": "It is a simple \"I gotcha a pokemon\" project built in ECMAScript 6",
+  "main": "index.js",
+  "repository": "https://github.com/andrefillypesilva/pokemon-project.git",
+  "author": "André Fillype Silva",
+  "license": "MIT"
+}
