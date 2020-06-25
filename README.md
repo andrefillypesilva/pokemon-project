@@ -1,2 +1,2 @@
 # pokemon-project
-It is a simple "gotcha pokemon" project built in ECMAScript 6
+It is a simple "I gotcha a pokemon" project built in ECMAScript 6
