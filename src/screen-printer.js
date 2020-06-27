@@ -4,6 +4,7 @@ export class ScreenPrinter {
     constructor() {
         this.pokemonCaptured = 0;
         this.visitedPokehomes = [];
+        this.gameAlreadyStarted = false;
 
         this.vg = new VirtualGame();
     }
@@ -62,14 +63,25 @@ export class ScreenPrinter {
         let input = document.createElement("input");
         input.setAttribute("id", "input");
         input.classList = "form-control";
+        input.addEventListener("keyup", () => {
+            button.setAttribute("disabled", "disabled");
+            if (input.value != "") {
+                button.removeAttribute("disabled");
+            }
+        });
 
         let button = document.createElement("button");
         button.setAttribute("id", "submit");
         button.innerHTML = "Enviar";
         button.classList = "btn btn-warning btn-lg btn-block";
         button.addEventListener("click", () => {
-            this.vg.start();
+            const score = this.vg.start();
+            if (this.gameAlreadyStarted) this.recreateEnvironment();
+            document.querySelector(".score-value").innerHTML = score;
+            input.value = "";
+            this.gameAlreadyStarted = false;
         });
+        button.setAttribute("disabled", "disabled");
 
         let extra = document.createElement("p");
         extra.innerHTML = "Movimentos: <br/>N: Norte - S: Sul - E: Este - O: Oeste";
@@ -99,6 +111,7 @@ export class ScreenPrinter {
     }
 
     moveHero(x, y, direction) {
+        this.gameAlreadyStarted = true;
         let newX = x;
         let newY = y;
         let canResetGame = false;
@@ -170,6 +183,7 @@ export class ScreenPrinter {
     }
 
     resetGame() {
+        this.gameAlreadyStarted = false;
         this.pokemonCaptured = 0;
         this.visitedPokehomes = [];
         this.recreateEnvironment();

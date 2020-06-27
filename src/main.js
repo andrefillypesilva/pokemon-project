@@ -2,12 +2,18 @@ import { ScreenPrinter } from "./screen-printer";
 
 class Main {
     constructor() {
+        this.actualX = 1;
+        this.actualY = 1;
+
         this.sp = new ScreenPrinter();
         this.sp.createEnvironment();
     }
 
-    callMoveHero(x, y, direction) {
-        return this.sp.moveHero(x, y, direction);
+    callMoveHero(direction) {
+        let movementResult = this.sp.moveHero(this.actualX, this.actualY, direction);
+
+        this.actualX = movementResult[0];
+        this.actualY = movementResult[1];
     }
 
     startVirtualGame() {
@@ -15,31 +21,24 @@ class Main {
     }
 }
 
-let actualX = 1;
-let actualY = 1;
-
 const app = new Main();
 
 window.onkeydown = (e => {
-    let movementResult = [];
     switch (e.code) {
         case "ArrowUp":
-            movementResult = app.callMoveHero(actualX, actualY, "N");
+            app.callMoveHero("N");
             break;
 
         case "ArrowDown":
-            movementResult = app.callMoveHero(actualX, actualY, "S");
+            app.callMoveHero("S");
             break;
 
         case "ArrowRight":
-            movementResult = app.callMoveHero(actualX, actualY, "E");
+            app.callMoveHero("E");
             break;
 
         case "ArrowLeft":
-            movementResult = app.callMoveHero(actualX, actualY, "O");
+            app.callMoveHero("O");
             break;
     }
-
-    actualX = movementResult[0];
-    actualY = movementResult[1];
 });
