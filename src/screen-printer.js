@@ -1,6 +1,7 @@
 export class ScreenPrinter {
     constructor() {
         this.pokemonCaptured = 0;
+        this.visitedPokehomes = [];
     }
 
     createEnvironment() {
@@ -24,17 +25,23 @@ export class ScreenPrinter {
 
         row.appendChild(pokearena);
 
-        for (let i = 0; i < 16; i++) {
-            let pokehomeDiv = document.createElement("div");
-            pokehomeDiv.setAttribute("id", `pokehome${i + 1}`);
+        for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 4; j++) {
+                let pokehomeDiv = document.createElement("div");
+                pokehomeDiv.setAttribute("id", `pokehome${j + 1}-${i + 1}`);
 
-            pokehomeDiv.classList = "col-md-3 pokehome";
+                pokehomeDiv.classList = "col-md-3 pokehome";
 
-            pokearenaRow.appendChild(pokehomeDiv);
+                pokearenaRow.appendChild(pokehomeDiv);
 
-            let img = document.createElement("img");
-            img.setAttribute("src", `./images/${this.randomImage()}`);
-            pokehomeDiv.appendChild(img);
+                let img = document.createElement("img");
+                img.setAttribute("src", `./images/${this.randomImage()}`);
+                pokehomeDiv.appendChild(img);
+
+                let span = document.createElement("span");
+                span.textContent = `x: ${j + 1} - y: ${i + 1}`;
+                pokehomeDiv.appendChild(span);
+            }
         }
 
         let scoreDiv = document.createElement("div");
@@ -60,57 +67,53 @@ export class ScreenPrinter {
         this.createEnvironment();
     }
 
-    moveHero(index, direction) {
-        let newIndex = 0;
+    moveHero(x, y, direction) {
+        let newX = x;
+        let newY = y;
 
         switch (direction) {
             case "N":
-                if (index < 4 || index == 0) {
-                    newIndex = index;
-                } else {
-                    newIndex = index - 4;
+                if (y != 1) {
+                    newY = y - 1;
                 }
                 break;
 
             case "S":
-                if (index > 13 || index == 0) {
-                    newIndex = index;
-                } else {
-                    newIndex = index + 4;
+                if (y != 4) {
+                    newY = y + 1;
                 }
                 break;
 
             case "E":
-                if (index % 4 == 0 && index != 0) {
-                    newIndex = index;
-                } else {
-                    newIndex = index + 1;
+                if (x != 4) {
+                    newX = x + 1;
                 }
                 break;
 
             case "O":
-                if (index == 1 || index == 5 || index == 9 || index == 13 || index == 0) {
-                    newIndex = index;
-                } else {
-                    newIndex = index - 1;
+                if (x != 1) {
+                    newX = x - 1;
                 }
                 break;
         }
 
-        let images = document.getElementById(`pokehome${newIndex}`).getElementsByTagName("img");
+        let images = document.getElementById(`pokehome${newX}-${newY}`).getElementsByTagName("img");
 
         for (let i = 0; i < images.length; i++) {
 
-            if (index != 0) document.getElementById(`pokehome${index}`).classList.remove("active");
-            document.getElementById(`pokehome${newIndex}`).classList.add("active");
+            document.getElementById(`pokehome${x}-${y}`).classList.remove("active");
+            document.getElementById(`pokehome${newX}-${newY}`).classList.add("active");
 
-            if (!images[i].getAttribute("src").includes("pokeball")) {
+            let temp = this.visitedPokehomes.find(v => v == `${newX}-${newY}`);
+
+            if (temp == undefined) {
                 this.capturePokemon();
                 images[i].setAttribute("src", "./images/pokeball.png");
+                this.visitedPokehomes.push(`${newX}-${newY}`);
             }
         }
 
-        return newIndex;
+        return [newX, newY];
     }
 
     capturePokemon() {
@@ -129,6 +132,7 @@ export class ScreenPrinter {
 
     resetGame() {
         this.pokemonCaptured = 0;
+        this.visitedPokehomes = [];
         this.recreateEnvironment();
     }
 

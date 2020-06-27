@@ -7,31 +7,36 @@ class Main {
         this.sp.createEnvironment();
     }
 
-    callMoveHero(index, direction) {
-        return this.sp.moveHero(index, direction);
+    callMoveHero(x, y, direction) {
+        return this.sp.moveHero(x, y, direction);
     }
 }
 
-let actualIndex = 0;
+let actualX = 1;
+let actualY = 1;
 
 const app = new Main();
 
 window.onkeydown = (e => {
+    let movementResult = [];
     switch (e.code) {
         case "ArrowUp":
-            actualIndex = app.callMoveHero(actualIndex, "N");
+            movementResult = app.callMoveHero(actualX, actualY, "N");
             break;
 
         case "ArrowDown":
-            actualIndex = app.callMoveHero(actualIndex, "S");
+            movementResult = app.callMoveHero(actualX, actualY, "S");
             break;
 
         case "ArrowRight":
-            actualIndex = app.callMoveHero(actualIndex, "E");
+            movementResult = app.callMoveHero(actualX, actualY, "E");
             break;
 
         case "ArrowLeft":
-            actualIndex = app.callMoveHero(actualIndex, "O");
+            movementResult = app.callMoveHero(actualX, actualY, "O");
             break;
     }
+
+    actualX = movementResult[0];
+    actualY = movementResult[1];
 });
