@@ -31,15 +31,22 @@ body {
                     }
                 }
                 .score {
-                    text-align: center;
-                    padding-top: 10rem;
+                    padding-top: 2rem;
 
+                    p {
+                        font-size: 10px;
+                        margin-bottom: 1.5rem;
+                    }
                     span {
+                        text-align: center;
                         font-family: "Pangolin", cursive;
                     }
                     h1 {
-                        font-size: 10rem;
-                        font-family: "Press Start 2P", cursive;
+                        &.score-value {
+                            text-align: center;
+                            font-size: 10rem;
+                            font-family: "Press Start 2P", cursive;
+                        }
                     }
                 }
             }

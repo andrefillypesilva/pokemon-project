@@ -3,12 +3,15 @@ import { ScreenPrinter } from "./screen-printer";
 class Main {
     constructor() {
         this.sp = new ScreenPrinter();
-        
         this.sp.createEnvironment();
     }
 
     callMoveHero(x, y, direction) {
         return this.sp.moveHero(x, y, direction);
+    }
+
+    startVirtualGame() {
+        this.vg.start();
     }
 }
 

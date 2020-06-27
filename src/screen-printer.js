@@ -1,7 +1,11 @@
+import { VirtualGame } from './virtual-game';
+
 export class ScreenPrinter {
     constructor() {
         this.pokemonCaptured = 0;
         this.visitedPokehomes = [];
+
+        this.vg = new VirtualGame();
     }
 
     createEnvironment() {
@@ -48,6 +52,33 @@ export class ScreenPrinter {
         scoreDiv.classList = "col-md-2 score";
 
         row.appendChild(scoreDiv);
+
+        let title = document.createElement("h5");
+        title.textContent = "Pokémon: Apanhá-los todos.";
+
+        let description = document.createElement("p");
+        description.textContent = "Para jogar você poderá utilizar o campo abaixo digitando a sequência de movimentos (dessa maneira será utilizada uma grelha virtual com infinitas casas) ou poderá utilizar as teclas [UP], [DOWN], [RIGHT], [LEFT] para mover o personagem na grelha com posições finitas renderizada na tela.";
+
+        let input = document.createElement("input");
+        input.setAttribute("id", "input");
+        input.classList = "form-control";
+
+        let button = document.createElement("button");
+        button.setAttribute("id", "submit");
+        button.innerHTML = "Enviar";
+        button.classList = "btn btn-warning btn-lg btn-block";
+        button.addEventListener("click", () => {
+            this.vg.start();
+        });
+
+        let extra = document.createElement("p");
+        extra.innerHTML = "Movimentos: <br/>N: Norte - S: Sul - E: Este - O: Oeste";
+
+        scoreDiv.appendChild(title);
+        scoreDiv.appendChild(description);
+        scoreDiv.appendChild(input);
+        scoreDiv.appendChild(button);
+        scoreDiv.appendChild(extra);
 
         let span = document.createElement("span");
         let h1 = document.createElement("h1");
