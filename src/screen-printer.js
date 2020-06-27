@@ -91,6 +91,7 @@ export class ScreenPrinter {
             document.querySelector(".score-value").innerHTML = score;
             input.value = "";
             this.gameAlreadyStarted = false;
+            button.setAttribute("disabled", "disabled");
         });
         button.setAttribute("disabled", "disabled");
 
