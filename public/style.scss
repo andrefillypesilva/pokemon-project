@@ -5,9 +5,9 @@ body {
                 .pokehome {
                     height: 25vh;
                     border: 1px solid #ddd;
-
+                    
                     img {
-                        height: 100%;
+                        height: 80%;
                         display: block;
                         margin: auto;
                     }
@@ -17,6 +17,10 @@ body {
                         font-size: 10px;
                         position: absolute;
                         top: 0;
+                    }
+
+                    h5 {
+                        text-align: center;
                     }
                 }
                 .active {

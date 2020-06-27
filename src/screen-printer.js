@@ -1,4 +1,5 @@
 import { VirtualGame } from './virtual-game';
+import { Pokemon } from './pokemon';
 
 export class ScreenPrinter {
     constructor() {
@@ -11,48 +12,58 @@ export class ScreenPrinter {
 
     createEnvironment() {
         let app = document.getElementById("app");
+
         let container = document.createElement("div");
+        container.setAttribute("class", "container");
+
         let row = document.createElement("row");
+        row.setAttribute("class", "row");
 
         app.appendChild(container);
         container.appendChild(row);
 
-        container.setAttribute("class", "container");
-        row.setAttribute("class", "row");
+        this.createPokearena(row);
+        this.createScoreColumn(row);
+    }
 
+    createPokearena(row) {
         let pokearena = document.createElement("div");
         pokearena.classList = "col-md-10";
 
         let pokearenaRow = document.createElement("div");
         pokearenaRow.classList = "row";
 
-        pokearena.appendChild(pokearenaRow);
-
-        row.appendChild(pokearena);
-
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 4; j++) {
+                let pokemon = new Pokemon(this.random());
+
                 let pokehomeDiv = document.createElement("div");
                 pokehomeDiv.setAttribute("id", `pokehome${j + 1}-${i + 1}`);
-
                 pokehomeDiv.classList = "col-md-3 pokehome";
 
-                pokearenaRow.appendChild(pokehomeDiv);
-
                 let img = document.createElement("img");
-                img.setAttribute("src", `./images/${this.randomImage()}`);
+                img.setAttribute("src", `./images/${pokemon.filename}`);
                 pokehomeDiv.appendChild(img);
+
+                let subtitle = document.createElement("h5");
+                subtitle.textContent = pokemon.name;
+                pokehomeDiv.appendChild(subtitle);
 
                 let span = document.createElement("span");
                 span.textContent = `x: ${j + 1} - y: ${i + 1}`;
                 pokehomeDiv.appendChild(span);
+
+                pokearenaRow.appendChild(pokehomeDiv);
             }
         }
 
+        pokearena.appendChild(pokearenaRow);
+        row.appendChild(pokearena);
+    }
+
+    createScoreColumn(row) {
         let scoreDiv = document.createElement("div");
         scoreDiv.classList = "col-md-2 score";
-
-        row.appendChild(scoreDiv);
 
         let title = document.createElement("h5");
         title.textContent = "Pokémon: Apanhá-los todos.";
@@ -86,21 +97,21 @@ export class ScreenPrinter {
         let extra = document.createElement("p");
         extra.innerHTML = "Movimentos: <br/>N: Norte - S: Sul - E: Este - O: Oeste";
 
+        let span = document.createElement("span");
+        span.textContent = "Quantos Pokémons você capturou:";
+
+        let h1 = document.createElement("h1");
+        h1.textContent = "0";
+        h1.classList = "score-value";
+
         scoreDiv.appendChild(title);
         scoreDiv.appendChild(description);
         scoreDiv.appendChild(input);
         scoreDiv.appendChild(button);
         scoreDiv.appendChild(extra);
-
-        let span = document.createElement("span");
-        let h1 = document.createElement("h1");
-
-        span.textContent = "Quantos Pokémons você capturou:";
-        h1.textContent = "0";
-        h1.classList = "score-value";
-
         scoreDiv.appendChild(span);
         scoreDiv.appendChild(h1);
+        row.appendChild(scoreDiv);
     }
 
     recreateEnvironment() {
@@ -152,6 +163,7 @@ export class ScreenPrinter {
             let temp = this.visitedPokehomes.find(v => v == `${newX}-${newY}`);
 
             if (temp == undefined) {
+                images[i].parentElement.querySelector("h5").remove();
                 canResetGame = this.capturePokemon();
                 images[i].setAttribute("src", "./images/pokeball.png");
                 this.visitedPokehomes.push(`${newX}-${newY}`);
@@ -189,7 +201,7 @@ export class ScreenPrinter {
         this.recreateEnvironment();
     }
 
-    randomImage() {
-        return `${Math.ceil(Math.random() * 10)}.png`;
+    random() {
+        return `${Math.ceil(Math.random() * 10)}`;
     }
 }
