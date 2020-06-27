@@ -70,6 +70,7 @@ export class ScreenPrinter {
     moveHero(x, y, direction) {
         let newX = x;
         let newY = y;
+        let canResetGame = false;
 
         switch (direction) {
             case "N":
@@ -107,10 +108,15 @@ export class ScreenPrinter {
             let temp = this.visitedPokehomes.find(v => v == `${newX}-${newY}`);
 
             if (temp == undefined) {
-                this.capturePokemon();
+                canResetGame = this.capturePokemon();
                 images[i].setAttribute("src", "./images/pokeball.png");
                 this.visitedPokehomes.push(`${newX}-${newY}`);
             }
+        }
+
+        if (canResetGame) {
+            newX = 1;
+            newY = 1;
         }
 
         return [newX, newY];
@@ -128,6 +134,8 @@ export class ScreenPrinter {
                 this.resetGame();
             }
         }, 200);
+
+        return this.pokemonCaptured == 16;
     }
 
     resetGame() {
