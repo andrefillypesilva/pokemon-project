@@ -4,10 +4,11 @@ export class VirtualGame {
         this.actualY = 1;
         this.pokemonCaptured = 0;
         this.visitedPokehomes = [];
+        this.capturePokemon(this.actualX, this.actualY);
     }
 
-    start() {
-        let directions = [...document.getElementById("input").value];
+    start(directionsString) {
+        let directions = directionsString != null ? [...directionsString] : [...document.getElementById("input").value];
         
         directions.forEach(direction => {
             switch (direction) {
@@ -40,6 +41,7 @@ export class VirtualGame {
         this.actualY = 1;
         this.visitedPokehomes = [];
         this.pokemonCaptured = 0;
+        this.capturePokemon(this.actualX, this.actualY);
     }
 
     capturePokemon(x, y) {

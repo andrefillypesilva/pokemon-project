@@ -13,6 +13,11 @@ export class ScreenPrinter {
     createEnvironment() {
         let app = document.getElementById("app");
 
+        if (app == undefined) {
+            app = document.createElement("app");
+            app.setAttribute("id", "app");
+        }
+
         let container = document.createElement("div");
         container.setAttribute("class", "container");
 
