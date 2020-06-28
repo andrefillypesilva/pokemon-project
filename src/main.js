@@ -15,10 +15,6 @@ class Main {
         this.actualX = movementResult[0];
         this.actualY = movementResult[1];
     }
-
-    startVirtualGame() {
-        this.vg.start();
-    }
 }
 
 const app = new Main();
