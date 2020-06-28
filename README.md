@@ -13,6 +13,8 @@ To play this game you can enter in the input a value corresponding to the Ash's 
 
 You can play it in a finite matrix rendered in the screen too. For this use [UP], [DOWN], [RIGHT] and [LEFT] buttons in your keyboard to control Ash's movements. The game ends when you get all available Pokémons.
 
+![Application Example](https://github.com/andrefillypesilva/pokemon-project/blob/master/application_example.jpg?raw=true)
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
